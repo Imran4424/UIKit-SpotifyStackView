@@ -43,6 +43,8 @@ class ViewController: UIViewController {
      */
     
     func setupViews() {
+        let stackView = makeStackView(withOrientation: .vertical, spacing: margin)
+        
         let offline = RowView(labelText: "Offline", isSwitchOn: false)
         let offlineSublabel = makeSubLabel(withText: "When you go offline, you'll only be able to play the music and podcasts you've downloaded.")
         
@@ -58,53 +60,20 @@ class ViewController: UIViewController {
         hideSong.translatesAutoresizingMaskIntoConstraints = false
         enableNormalization.translatesAutoresizingMaskIntoConstraints = false
 
-        view.addSubview(offline)
-        view.addSubview(offlineSublabel)
-        view.addSubview(crossFade)
-        view.addSubview(gaplessPlayback)
-        view.addSubview(hideSong)
-        view.addSubview(enableNormalization)
+        view.addSubview(stackView)
         
-        // offline
-        NSLayoutConstraint.activate([
-            offline.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: margin),
-            offline.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
-            view.trailingAnchor.constraint(equalTo: offline.trailingAnchor, constant: margin)
-        ])
-
-        // offline sublabel
-        NSLayoutConstraint.activate([
-            offlineSublabel.topAnchor.constraint(equalTo: offline.bottomAnchor, constant: margin),
-            offlineSublabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
-            view.trailingAnchor.constraint(equalTo: offlineSublabel.trailingAnchor, constant: margin)
-        ])
+        stackView.addArrangedSubview(offline)
+        stackView.addArrangedSubview(offlineSublabel)
+        stackView.addArrangedSubview(crossFade)
+        stackView.addArrangedSubview(gaplessPlayback)
+        stackView.addArrangedSubview(hideSong)
+        stackView.addArrangedSubview(enableNormalization)
         
-        // crossFade
+        // stack view
         NSLayoutConstraint.activate([
-            crossFade.topAnchor.constraint(equalTo: offlineSublabel.bottomAnchor, constant: margin),
-            crossFade.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
-            crossFade.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -margin)
-        ])
-        
-        // gapless
-        NSLayoutConstraint.activate([
-            gaplessPlayback.topAnchor.constraint(equalTo: crossFade.bottomAnchor, constant: margin),
-            gaplessPlayback.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
-            view.trailingAnchor.constraint(equalTo: gaplessPlayback.trailingAnchor, constant: margin)
-        ])
-
-        // hideSong
-        NSLayoutConstraint.activate([
-            hideSong.topAnchor.constraint(equalTo: gaplessPlayback.bottomAnchor, constant: margin),
-            hideSong.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
-            view.trailingAnchor.constraint(equalTo: hideSong.trailingAnchor, constant: margin)
-        ])
-
-        // enable normal
-        NSLayoutConstraint.activate([
-            enableNormalization.topAnchor.constraint(equalTo: hideSong.bottomAnchor, constant: margin),
-            enableNormalization.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
-            view.trailingAnchor.constraint(equalTo: enableNormalization.trailingAnchor, constant: margin)
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: margin),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin),
+            view.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: margin)
         ])
     }
 }
